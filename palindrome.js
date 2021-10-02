@@ -1,33 +1,52 @@
-function isPalindrome(){
-    var reversed=""
-    var birthDate=document.getElementById("date").value;
-    console.log(birthDate);  
-    var digits="";
-    for(var i=0;i<birthDate.length;i++)
-    {
-             if(!isNaN(birthDate[i])){
-                  digits=digits+birthDate[i];
+var db= document.querySelector("#date");
+var button=document.querySelector("#button");
+
+button.addEventListener("click",eventHandler)
+
+
+function eventHandler(){
+   if(validate(db.value))
+      isPalindrome(db.value);
+}
+
+
+function digitsOnly(birthDate){
+
+var splitDate= birthDate.split("-");
+var digits=splitDate[2]+splitDate[1]+splitDate[0];
+return digits;
+}
+
+function getReversed(digits){
+    var reversed="";
+    for(var i=digits.length-1;i>=0;i--){
+       reversed=reversed+digits[i]; 
     }
+    return reversed;
 }
-for(var i=digits.length-1;i>=0;i--){
-    reversed=reversed+digits[i];
-    console.log(reversed);
-}
-    // console.log(digits);
 
-    // var reversed=0;
-    // var temp=parseInt(digits);
-    // var rem;
-    // while(temp>0)
-    // {
-    //     rem=temp%10;
-    //     reversed=reversed*10 + rem;
-    //     temp=temp/10;
-    // }
-    console.log(reversed);
+function isPalindrome(birthDate){
+   console.log(birthDate)
+    var digits=digitsOnly(birthDate);
+    var reversed =getReversed(digits);
+    
   if(digits===reversed)
-    document.getElementById("output").innerText="yay you have palindrome birth date!!";
+    show("yay you have palindrome birth date!!");
    else  
-   document.getElementById("output").innerText="oops your birth date is not a palindrome!!";
+    show("oops your birth date is not a palindrome!!");
 
+}
+
+function show(message){
+    output.innerText=`${message}`;
+}
+
+function validate(date){
+    if(date===""){
+      alert("enter date");
+      return false;
+    }
+    else{
+        return true;
+    }
 }
